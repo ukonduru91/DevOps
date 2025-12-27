@@ -5,14 +5,14 @@ Git is version control software:
 
 Commands and concepts:
 
-```git init```  
-# Initializes git repo on the local system and in current working directory, it also create .git directory which is essential for git to track versions/commits and work correctly, it creates files and folders like hooks, info, objects, refs, config, description, HEAD. If we execute the git commands where .git directory is not present then git commands would not work.
+```bash git init```  
+#Initializes git repo on the local system and in current working directory, it also create .git directory which is essential for git to track versions/commits and work correctly, it creates files and folders like hooks, info, objects, refs, config, description, HEAD. If we execute the git commands where .git directory is not present then git commands would not work.
 
-```git clone <remote repository url>``` 
-# Similar to git Initialize , this command clones the remote repo to local system including .git folder and commit history, and it add remote repository alias as origin, this is preferred if we are working in existing repository.
+```bash git clone <remote repository url>``` 
+#Similar to git Initialize , this command clones the remote repo to local system including .git folder and commit history, and it add remote repository alias as origin, this is preferred if we are working in existing repository.
 
-```git status``` 
+```bash git status``` 
 #Status shows on which branch you are currently on and untracked files, also Tracked files if they are modified but not added to stagging area etc.
 
-```git add .``` 
-# Add all the files from local to stagging area, period represents all the files.
+```bash git add .``` 
+#Adding all the files from local to stagging area, period represents all the files.
