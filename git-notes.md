@@ -63,4 +63,25 @@ Commands and concepts:
 #To unstage files from staging area back to working directory  
 #(changes are kept in working directory).
 
-```Upendra````
+
+```bash git fetch```
+
+#Updates local copy of remote branches e.g., origin/main or origin/feature_branch , but does not affect local branches or working directory, you can check those as ```bash git log origin/main --oneline```
+
+```bash git merge origin/main```
+
+#Changes that are updated to reference remote branch gets merged into the current branch you are on.
+
+```bash git pull origin main```
+
+#Command executes both fetch and merge in the backend and merges the changes from remote repo to local repo
+
+```bash git diff main origin/main```
+
+#Shows the result by comparing the latest commits from each branch
+
+Merge Conflicts:
+----------------
+
+#Merge conflicts araise when we try to merge two branches and if there are any flies that has conflicting changes example same lines has different changes or same file has been deleted in branch but exist in another example.
+
