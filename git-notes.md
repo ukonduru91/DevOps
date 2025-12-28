@@ -85,3 +85,22 @@ Merge Conflicts:
 
 #Merge conflicts araise when we try to merge two branches and if there are any flies that has conflicting changes example same lines has different changes or same file has been deleted in branch but exist in another example.
 
+Example: 
+If you have raised a PR request and while merging if it shows there are merge conflicts, follow below process to resolve them.
+If you are trying to merge from ```branch-b``` to ```main``` branch.
+
+git checkout main
+git pull main
+git checkout branch-b
+git merge main #identify all the files that has conflicts and resolve them manually.
+git add .
+git commit -m <commit message>
+git push -u origin branch-b
+Now conflicts would be resolved and we can perform merge
+
+Git Rebase:
+-----------
+Note: Never run this command on main branch or shared branches only run on private branches or non-shared
+
+
+
