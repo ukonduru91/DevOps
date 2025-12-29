@@ -149,28 +149,45 @@ After successful rebase (all conflicts resolved):
 #Use --force-with-lease (safer than plain --force)
 ``` bash git push origin branch-b --force-with-lease ```
 
-```bash git reset --soft HEAD~1 or bash git reset HEAD~1```
+``` bash git reset --soft HEAD~1 ```
+This command undoes the last commit (removes it from history), but keeps all the changes from that commit **staged** in the index (staging area).
+→ You can immediately edit the commit message or re-commit the same changes.
+→ Working directory and staged files remain exactly as they were.
 
-#This command will undo the changes of last commit, deletes commit history but keep the changes staged
+``` bash git reset --mixed HEAD~1 ```   (this is the DEFAULT if you write just git reset HEAD~1)
+This command undoes the last commit and **unstages** the changes.
+→ The commit is removed from history.
+→ All changes from that commit go back to your working directory (unstaged) — ready for editing, selective staging (git add), or new commits.
 
-```bash git reset --mixed HEAD~1```
+``` bash git reset --hard HEAD~1 ```
+This command completely discards the last commit.
+→ Removes the commit from history.
+→ Resets both the staging area (index) and working directory to exactly match the state of the previous commit.
+→ Warning: Destructive! Lost changes are very hard to recover (only possible via git reflog in some cases).
 
-#This command will undo the changes of last commit,  deletes commit history and also unstages the changes
+``` bash git revert <commit_hash> ```
+This command creates a **new commit** that undoes (reverses) the changes introduced by the specified commit.
+→ Does NOT delete or rewrite any history → very safe on shared/public branches (main, release branches, etc.).
+→ Recommended when you need to undo something already pushed and shared with others.
 
-```bash git reset --hard HEAD~1```
+``` bash git squash ```
+There is NO direct "git squash" command!
+To combine (squash) multiple commits into one, you use interactive rebase:
+git rebase -i <commit_hash>^     (or git rebase -i HEAD~N for last N commits)
+→ In the editor that opens, change "pick" to "squash" (or "s") for the commits you want to merge into the previous one.
+→ You can then edit the combined commit message.
+→ Only do this on your private/local branch before pushing (rewrites history → requires force-push).
 
-#This command will undo the changes of last commit, delete the commit history and changes from working directory also
+``` bash git stash ```
+Temporarily saves your uncommitted changes (both staged and unstaged) and cleans your working directory.
+→ Very useful when you need to switch branches quickly or pull changes, but you have dirty working directory.
+→ Later, get changes back with: git stash pop    (applies + removes from stash)
+→ Or git stash apply     (applies but keeps in stash)
+→ You can also list stashes: git stash list
 
-```bash git revert <commit_hash>```
-
-#This command reverts to the specified commit_hash by preserving the commit history, safe to run on shared branches
-
-```bash git squah <commit_hash>```
-
-#When there are multiple commits, by using squash we can combine into single commit and also run locally before pushing to remote branch.
-
-```bash git stash```
-
-#If we have modified the files and did not commit yet, but we need to switch to someother branch for any reason git will not allow until we commit, to avoid it we can run this command which will allow us to switch to other branches , once you are back you can execute ```bash git stash pop``` to get the changes back.
-
-```bash git cherrypick <commit_hash> ```
+``` bash git cherry-pick <commit_hash> ```
+Applies the changes from a specific commit (from any branch) onto your current branch as a new commit.
+→ Useful for selectively bringing one or few commits (e.g. a bugfix) without merging the entire branch.
+→ Safe on shared branches in terms of not rewriting history (creates new commit).
+→ Can cause conflicts — resolve them as usual.
+→ Can lead to duplicate commits if the same change later gets merged normally (watch out for that).
