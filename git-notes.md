@@ -91,29 +91,23 @@ This usually happens when:
 Resolving Merge Conflicts (e.g. when merging branch-b into main)
 
 1. Update your local main branch
-git checkout main
-git pull origin main
+``` bash git checkout main ```
+``` bash git pull origin main ```
 
 2. Switch to your feature branch
-git checkout branch-b
+``` bash git checkout branch-b ```
 
 3. Merge main into your branch (this will show conflicts)
-git merge main
+``` bash git merge main ```
 
 Git will pause and list conflicting files.
 Open each conflicting file in your editor — Git marks conflicts like this:
 
-<<<<<<< HEAD
-    your current branch-b changes
-=======
-    changes from main
->>>>>>> main
-
 Manually edit to keep the desired version(s), remove the markers, then:
 
-git add .
-git commit -m "Resolve merge conflicts with main"
-git push origin branch-b
+``` bash git add . ```
+``` bash git commit -m "Resolve merge conflicts with main" ```
+``` bash git push origin branch-b ```
 
 Now the conflicts are resolved and you can complete the PR merge on GitHub/GitLab/etc.
 
@@ -134,26 +128,26 @@ git rebase takes all your commits and reapplies them cleanly on top of the targe
 
 How to rebase your branch onto main
 
-# Make sure main is up to date
-git fetch origin
-git checkout main
-git pull origin main
+#Make sure main is up to date
+``` bash git fetch origin ```
+``` bash git checkout main ```
+``` bash git pull origin main ```
 
-# Switch to your branch and rebase
-git checkout branch-b
-git rebase main
+#Switch to your branch and rebase
+``` bash git checkout branch-b ```
+``` bash git rebase main ```
 
 If conflicts appear:
 Git pauses after each conflicting commit. Resolve them the same way as during a merge, then continue:
 
-git add <resolved-file>
-git rebase --continue
+``` bash git add <resolved-file> ```
+``` bash git rebase --continue ```
 
 After successful rebase (all conflicts resolved):
 
-# History was rewritten → we need to force-push
-# Use --force-with-lease (safer than plain --force)
-git push origin branch-b --force-with-lease
+#History was rewritten → we need to force-push
+#Use --force-with-lease (safer than plain --force)
+``` bash git push origin branch-b --force-with-lease ```
 
 
 
