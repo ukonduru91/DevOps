@@ -167,4 +167,10 @@ After successful rebase (all conflicts resolved):
 
 ```bash git squah <commit_hash>```
 
-#When there are multiple commits, by using squash we can combine into single commit and also run locally before pushing to remote branch
+#When there are multiple commits, by using squash we can combine into single commit and also run locally before pushing to remote branch.
+
+```bash git stash```
+
+#If we have modified the files and did not commit yet, but we need to switch to someother branch for any reason git will not allow until we commit, to avoid it we can run this command which will allow us to switch to other branches , once you are back you can execute ```bash git stash pop``` to get the changes back.
+
+```bash git cherrypick <commit_hash> ```
