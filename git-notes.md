@@ -80,27 +80,80 @@ Commands and concepts:
 
 #Shows the result by comparing the latest commits from each branch
 
-Merge Conflicts:
-----------------
+Merge Conflicts
 
-#Merge conflicts araise when we try to merge two branches and if there are any flies that has conflicting changes example same lines has different changes or same file has been deleted in branch but exist in another example.
+Merge conflicts occur when Git cannot automatically reconcile changes between two branches.
+This usually happens when:
 
-Example: 
-If you have raised a PR request and while merging if it shows there are merge conflicts, follow below process to resolve them.
-If you are trying to merge from ```branch-b``` to ```main``` branch.
+- The same line(s) in a file were changed differently in both branches
+- A file was deleted in one branch but modified (or still exists) in the other
 
+Resolving Merge Conflicts (e.g. when merging branch-b into main)
+
+1. Update your local main branch
 git checkout main
-git pull main
-git checkout branch-b
-git merge main #identify all the files that has conflicts and resolve them manually.
-git add .
-git commit -m <commit message>
-git push -u origin branch-b
-Now conflicts would be resolved and we can perform merge
+git pull origin main
 
-Git Rebase:
------------
-Note: Never run this command on main branch or shared branches only run on private branches or non-shared
+2. Switch to your feature branch
+git checkout branch-b
+
+3. Merge main into your branch (this will show conflicts)
+git merge main
+
+Git will pause and list conflicting files.
+Open each conflicting file in your editor — Git marks conflicts like this:
+
+<<<<<<< HEAD
+    your current branch-b changes
+=======
+    changes from main
+>>>>>>> main
+
+Manually edit to keep the desired version(s), remove the markers, then:
+
+git add .
+git commit -m "Resolve merge conflicts with main"
+git push origin branch-b
+
+Now the conflicts are resolved and you can complete the PR merge on GitHub/GitLab/etc.
+
+Git Rebase
+
+Important Safety Rule
+Never rebase commits that have already been pushed and shared with others (especially not main or any shared branch).
+Rebasing rewrites history and can cause serious problems for teammates.
+
+Use rebase only on your private/personal feature branches that no one else has based work on.
+
+Why prefer rebase over merge?
+
+Regular git merge usually creates an extra merge commit — even when there are no actual code conflicts.
+This can make the history look cluttered with many merge commits.
+
+git rebase takes all your commits and reapplies them cleanly on top of the target branch → results in a nice, linear history without extra merge commits.
+
+How to rebase your branch onto main
+
+# Make sure main is up to date
+git fetch origin
+git checkout main
+git pull origin main
+
+# Switch to your branch and rebase
+git checkout branch-b
+git rebase main
+
+If conflicts appear:
+Git pauses after each conflicting commit. Resolve them the same way as during a merge, then continue:
+
+git add <resolved-file>
+git rebase --continue
+
+After successful rebase (all conflicts resolved):
+
+# History was rewritten → we need to force-push
+# Use --force-with-lease (safer than plain --force)
+git push origin branch-b --force-with-lease
 
 
 
