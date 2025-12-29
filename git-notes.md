@@ -149,5 +149,22 @@ After successful rebase (all conflicts resolved):
 #Use --force-with-lease (safer than plain --force)
 ``` bash git push origin branch-b --force-with-lease ```
 
+```bash git reset --soft HEAD~1 or bash git reset HEAD~1```
 
+#This command will undo the changes of last commit, deletes commit history but keep the changes staged
 
+```bash git reset --mixed HEAD~1```
+
+#This command will undo the changes of last commit,  deletes commit history and also unstages the changes
+
+```bash git reset --hard HEAD~1```
+
+#This command will undo the changes of last commit, delete the commit history and changes from working directory also
+
+```bash git revert <commit_hash>```
+
+#This command reverts to the specified commit_hash by preserving the commit history, safe to run on shared branches
+
+```bash git squah <commit_hash>```
+
+#When there are multiple commits, by using squash we can combine into single commit and also run locally before pushing to remote branch
